@@ -1,10 +1,10 @@
 #include "../include/lidar_sensor.h"
 #include "../include/utils.h"
 #include <iostream>
-#include <cmath> // لـ std::abs أو std::isfinite
+#include <cmath> 
 
 LidarSensor::LidarSensor(int id, const std::string& name)
-    : Sensor(id, name, "Lidar", "m"), noisefactor(0.1) { // ✅ [تعديل] ضبط noisefactor
+    : Sensor(id, name, "Lidar", "m"), noisefactor(0.1) { 
         lastReading_ = 0.1;
     }  
 
@@ -18,12 +18,11 @@ double LidarSensor::readData() {
     
     double baseDistance = Utils::randomDouble(0.1, 50.0);
     
-    // ✅ [تعديل] تصحيح منطق الضوضاء باستخدام الدوال الصحيحة
-    // يتم إنشاء عامل ضوضاء عشوائي بين -noisefactor و +noisefactor
+   
     double noise = baseDistance * Utils::randomDouble(-noisefactor, noisefactor);
     lastReading_ = baseDistance + noise;
     
-    // تحديد الحالة
+    
     if (lastReading_ <= 0.0 || !std::isfinite(lastReading_)) {
         status_ = SensorStatus::ERROR;
     } else {
@@ -34,7 +33,7 @@ double LidarSensor::readData() {
 }
 
 void LidarSensor::calibrate() {
-    noisefactor = 0.1; // إعادة تعيين الضوضاء
+    noisefactor = 0.1; 
     std::cout << "Calibrating Lidar sensor " << name_ << ". Noise reset.\n";
     lastReading_ = 0.1;
     status_ = SensorStatus::OK;
