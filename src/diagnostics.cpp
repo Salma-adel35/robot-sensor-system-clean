@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-// ✅ IMPLEMENTATION: runDiagnostics
+
 void Diagnostics::runDiagnostics(SensorManager& manager) {
     std::cout << "\n========== RUNNING DIAGNOSTICS ==========\n";
     resetReport(); 
@@ -18,20 +18,20 @@ void Diagnostics::runDiagnostics(SensorManager& manager) {
 
     report_ += "--- Diagnostics Report: " + Utils::currentDateTime() + " ---\n";
     
-    // استخدام std::for_each للمرور على جميع المستشعرات
+
     std::for_each(sensors.begin(), sensors.end(), 
         [this](const auto& pair) {
             const auto& sensor = pair.second;
             std::string status_icon = "✅";
             std::string logLine;
             
-            // التشخيص يعتمد على الحالة التي حددها المستشعر في readData
+            
             if (sensor->isFaulty() || sensor->getStatus() == SensorStatus::ERROR) {
                 status_icon = "🚨";
                 std::cout << status_icon << " " << sensor->getType() << " ID=" << sensor->getId() 
                           << " | ERROR or FAULT detected. Recalibrating..." << std::endl;
 
-                sensor->calibrate(); // إجراء تصحيحي
+                sensor->calibrate(); 
                 logLine = " -> Action: Recalibrated due to ERROR/FAULT.";
             } 
             else if (sensor->getStatus() == SensorStatus::WARNING) {
@@ -51,7 +51,7 @@ void Diagnostics::runDiagnostics(SensorManager& manager) {
     std::cout << "================== END ==================\n";
 }
 
-// ✅ IMPLEMENTATION: generateReport
+
 void Diagnostics::generateReport(const std::string& filename) const {
     std::ofstream ofs(filename, std::ios::app);
     if (ofs.is_open()) {
@@ -59,7 +59,7 @@ void Diagnostics::generateReport(const std::string& filename) const {
         ofs.close();
         std::cout << "[REPORT SAVED] Diagnostics report appended to " << filename << std::endl;
     } else {
-        // نستخدم runtime_error هنا ليتوافق مع طريقة التعامل مع الأخطاء في main.cpp
+        
         throw std::runtime_error("Failed to open diagnostics report file: " + filename);
     }
 }
