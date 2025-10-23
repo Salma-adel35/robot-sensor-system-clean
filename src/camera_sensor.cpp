@@ -11,14 +11,14 @@ double CameraSensor::readData() {
     if (isFaulty_) {
         std::cerr << "Camera " << name_ << " failed to capture frames!\n";
         status_ = SensorStatus::ERROR;
-        lastReading_ = 5.0; // قيمة فشل منخفضة
+        lastReading_ = 5.0; 
         return lastReading_;
     }
 
     double currentFPS = Utils::randomDouble(15.0, 60.0);
     
-    // تحديد الحالة
-    if (currentFPS < 10.0) { // ✅ [تعديل] إضافة شرط لـ ERROR (إذا كان FPS منخفضًا جدًا)
+    
+    if (currentFPS < 10.0) { 
         status_ = SensorStatus::ERROR;
     } else if (currentFPS < 20.0) {
         status_ = SensorStatus::WARNING;
@@ -31,7 +31,7 @@ double CameraSensor::readData() {
 }
 
 void CameraSensor::calibrate() {
-    // تم استخدام nominalFPS_ من الـ Header لتكون قيمة مرجعية
+    
     lastReading_ = nominalFPS_; 
     std::cout << "Calibrating camera sensor " << name_ << ". FPS reset to nominal.\n";
     status_ = SensorStatus::OK;
