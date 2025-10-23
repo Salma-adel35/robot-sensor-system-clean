@@ -1,11 +1,11 @@
 #include "../include/sensor.h"
 #include <iomanip> 
 
-// تنفيذ المُنشئ (صحيح)
+
 Sensor::Sensor(int id, const std::string& name, const std::string& type, const std::string& unit)
     : id_(id), name_(name), type_(type), unit_(unit), lastReading_(0.0), status_(SensorStatus::OK), isFaulty_(false) {}
 
-// تنفيذ الطباعة المشتركة (صحيح)
+
 void Sensor::printInfo() const {
     std::string status_str = statusToString();
     std::cout << "Sensor ID: " << id_
@@ -18,7 +18,7 @@ void Sensor::printInfo() const {
 }
 
 
-// تنفيذ تحويل الحالة إلى نص (صحيح)
+
 std::string Sensor::statusToString() const {
     switch (status_) {
         case SensorStatus::OK: return "OK";
@@ -28,5 +28,5 @@ std::string Sensor::statusToString() const {
     return "UNKNOWN";
 }
 
-// ✅ [تعديل] يجب حذف أي تعريف مكرر لـ setFaulty من هنا!
+
 
