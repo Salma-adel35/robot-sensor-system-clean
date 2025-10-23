@@ -7,11 +7,11 @@
 #include <iostream>
 #include <limits>
 #include <memory>
-#include <functional> // لـ std::function
+#include <functional> 
 
 using namespace std;
 
-// تعريف مسارات الملفات (كما هو مطلوب في التعليمات)
+
 const std::string LOG_FILE = "data/logs.txt";
 const std::string CONFIG_FILE = "data/config.txt";
 const std::string REPORT_FILE = "data/diagnostics_report.txt";
@@ -52,7 +52,7 @@ void handleAddSensor(SensorManager& manager) {
 
     try {
         switch (type_choice) {
-            // نستخدم make_shared لإنشاء المؤشرات
+            
             case 1: new_sensor = make_shared<TemperatureSensor>(new_id, "Temp_" + to_string(new_id)); break;
             case 2: new_sensor = make_shared<LidarSensor>(new_id, "Lidar_" + to_string(new_id)); break;
             case 3: new_sensor = make_shared<CameraSensor>(new_id, "Cam_" + to_string(new_id)); break;
@@ -86,12 +86,12 @@ void handleIDAction(SensorManager& manager, const string& prompt, function<void(
 
 
 int main() {
-    // يجب تهيئة SensorManager و Diagnostics
+    
     SensorManager manager;
     Diagnostics diagnostics;
     int read_count = 0;
     
-    // إضافة مستشعرات أولية
+    
     manager.addSensor(make_shared<TemperatureSensor>(Utils::generateID(), "Engine Temp"));
     manager.addSensor(make_shared<LidarSensor>(Utils::generateID(), "Front Lidar"));
     manager.addSensor(make_shared<CameraSensor>(Utils::generateID(), "Side Cam"));
@@ -111,7 +111,7 @@ int main() {
                 case 1: handleAddSensor(manager); break;
                 case 2: 
                     handleIDAction(manager, "remove", 
-                        [&](auto sensor) { manager.removeSensor(sensor->getId()); }); // استخدام lambda للحذف
+                        [&](auto sensor) { manager.removeSensor(sensor->getId()); }); 
                     break;
                 case 3: 
                     manager.readAllSensors(); 
