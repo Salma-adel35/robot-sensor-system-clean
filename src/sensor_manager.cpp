@@ -5,7 +5,7 @@
 #include <vector>
 #include <iostream>
 
-// allSensors_ is declared as a non-static member in the header; do not define it here.
+
 
 void SensorManager::addSensor(std::shared_ptr<Sensor> sensor)
 {
@@ -23,18 +23,18 @@ void SensorManager::removeSensor(int id)
     }
 }
 
-// ✅ IMPLEMENTATION: getSensor
+
 std::shared_ptr<Sensor> SensorManager::getSensor(int id)
 {
     auto it = allSensors_.find(id);
     return (it != allSensors_.end()) ? it->second : nullptr;
 }
 
-// ✅ IMPLEMENTATION: readAllSensors
+
 void SensorManager::readAllSensors()
 {
     std::cout << "\n--- Reading Sensor Data ---\n";
-    // استخدام std::for_each مع lambda
+    
     std::for_each(allSensors_.begin(), allSensors_.end(), 
         [](const auto& pair) {
             pair.second->readData();
@@ -42,7 +42,7 @@ void SensorManager::readAllSensors()
     std::cout << "--- Read Complete ---\n";
 }
 
-// ✅ IMPLEMENTATION: displayAllSensors
+
 void SensorManager::displayAllSensors() const
 {
     if (allSensors_.empty()) {
@@ -50,7 +50,7 @@ void SensorManager::displayAllSensors() const
         return;
     }
     std::cout << "\n--- All Sensors Status ---\n";
-    // استخدام std::for_each مع lambda
+  
     std::for_each(allSensors_.begin(), allSensors_.end(), 
         [](const auto& pair) {
             pair.second->printInfo();
@@ -58,7 +58,7 @@ void SensorManager::displayAllSensors() const
     std::cout << "--------------------------\n";
 }
 
-// ✅ IMPLEMENTATION: sortSensorsByReading
+
 void SensorManager::sortSensorsByReading()
 {
     std::vector<std::pair<int, std::shared_ptr<Sensor>>> sensorVec(allSensors_.begin(), allSensors_.end()); 
@@ -75,7 +75,7 @@ void SensorManager::sortSensorsByReading()
     }
 }
 
-// ✅ IMPLEMENTATION: saveLogs
+
 void SensorManager::saveLogs(const std::string& filename) const
 {
     std::ofstream ofs(filename, std::ios::app);
@@ -95,7 +95,7 @@ void SensorManager::saveLogs(const std::string& filename) const
     std::cout << "[LOG SAVED] Data logged to " << filename << std::endl;
 }
 
-// ✅ IMPLEMENTATION: loadConfig
+
 void SensorManager::loadConfig(const std::string& filename)
 {
     std::ifstream ifs(filename);
