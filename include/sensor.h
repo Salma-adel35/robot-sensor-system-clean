@@ -4,36 +4,33 @@
 #include <iostream>
 #include <string>
 
-// 1. تعريف Enum لحالة المستشعر
 enum class SensorStatus { OK, WARNING, ERROR };
 
 class Sensor {
 protected:
-    // 2. المتغيرات المحمية (Protected Attributes)
     int id_;
     std::string name_;
-    std::string type_; // مثل "Temperature", "Lidar"
-    std::string unit_; // مثل "C", "m", "FPS"
+    std::string type_;
+    std::string unit_;
     double lastReading_;
     SensorStatus status_;
-    bool isFaulty_; // لمحاكاة الفشل
+    bool isFaulty_; 
 
 public:
-    // المُنشئ (Constructor)
+    // ✅ [تعديل] توقيع المُنشئ: لا توجد تعديلات هنا، لكنه صحيح (يستخدم const& string).
     Sensor(int id, const std::string& name, const std::string& type, const std::string& unit);
 
-    // المُدمّر الافتراضي (Virtual Destructor) - ضروري لإدارة الذاكرة والتعدد الشكلي
     virtual ~Sensor() = default;
 
-    // 3. الدوال الافتراضية النقية (Pure Virtual Methods) - يجب تطبيقها في الفئات المشتقة
     virtual double readData() = 0;
     virtual void calibrate() = 0;
 
-    // 4. دالة افتراضية (Virtual Method) - يمكن للفئات المشتقة تجاوزها
     virtual void printInfo() const;
 
-    // 5. دالة محاكاة الفشل (Set Faulty)
+    // ✅ [تعديل] تم حذف setStatus من هنا! تم نقلها للملفات المشتقة أو إلى Getter/Setter.
+    // لكن بما أنكِ استخدمتي setStatus في مكان آخر، سنضيفها هنا.
     void setFaulty(bool fault) { isFaulty_ = fault; }
+    void setStatus(SensorStatus status) { status_ = status; } // ✅ [تعديل] إضافة setStatus هنا
 
     // دوال Getter للوصول للقراءات والحالة
     int getId() const { return id_; }
@@ -43,8 +40,6 @@ public:
     SensorStatus getStatus() const { return status_; }
     bool isFaulty() const { return isFaulty_; }
     
-    
-    // دالة مُساعدة لتحويل الحالة إلى نص (مفيدة للطباعة)
     std::string statusToString() const;
 };
 
