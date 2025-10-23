@@ -17,7 +17,7 @@ protected:
     bool isFaulty_; 
 
 public:
-    // ✅ [تعديل] توقيع المُنشئ: لا توجد تعديلات هنا، لكنه صحيح (يستخدم const& string).
+   
     Sensor(int id, const std::string& name, const std::string& type, const std::string& unit);
 
     virtual ~Sensor() = default;
@@ -27,12 +27,11 @@ public:
 
     virtual void printInfo() const;
 
-    // ✅ [تعديل] تم حذف setStatus من هنا! تم نقلها للملفات المشتقة أو إلى Getter/Setter.
-    // لكن بما أنكِ استخدمتي setStatus في مكان آخر، سنضيفها هنا.
-    void setFaulty(bool fault) { isFaulty_ = fault; }
-    void setStatus(SensorStatus status) { status_ = status; } // ✅ [تعديل] إضافة setStatus هنا
 
-    // دوال Getter للوصول للقراءات والحالة
+    void setFaulty(bool fault) { isFaulty_ = fault; }
+    void setStatus(SensorStatus status) { status_ = status; } 
+
+  
     int getId() const { return id_; }
     std::string getName() const { return name_; }
     std::string getType() const { return type_; }
@@ -43,4 +42,4 @@ public:
     std::string statusToString() const;
 };
 
-#endif // SENSOR_H
+#endif 
